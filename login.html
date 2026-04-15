@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Login / Register 🔐</h2>
+
+<input type="email" id="email" placeholder="Enter Email"><br><br>
+<input type="password" id="password" placeholder="Enter Password"><br><br>
+
+<button onclick="register()">Register</button>
+<button onclick="login()">Login</button>
+
+<script>
+// Default user
+if (!localStorage.getItem("admin@gmail.com")) {
+  localStorage.setItem("admin@gmail.com", "1234");
+}
+
+function register() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Enter all details");
+    return;
+  }
+
+  localStorage.setItem(email, password);
+  alert("User Registered ✅");
+}
+
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const storedPassword = localStorage.getItem(email);
+
+  if (storedPassword === password) {
+    localStorage.setItem("loggedInUser", email);
+    alert("Login Successful 🎉");
+    window.location.href = "index.html";
+  } else {
+    alert("Invalid Credentials ❌");
+  }
+}
+</script>
+
+</body>
+</html>

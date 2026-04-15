@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Receipt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧾 Payment Receipt</h1>
+
+<h3 id="user"></h3>
+<h3 id="orderId"></h3>
+
+<h2>Products</h2>
+<div id="items"></div>
+
+<h2>Total: ₹<span id="total"></span></h2>
+
+<h3 id="address"></h3>
+
+<button onclick="goHome()">Go Home 🏠</button>
+
+<script>
+// Load data
+const user = localStorage.getItem("loggedInUser");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const address = localStorage.getItem("address");
+
+// Generate order ID
+const orderId = "ORD" + Math.floor(Math.random() * 1000000);
+
+// Show data
+document.getElementById("user").innerText = "👤 " + user;
+document.getElementById("orderId").innerText = "Order ID: " + orderId;
+document.getElementById("address").innerText = "📍 " + address;
+
+let total = 0;
+cart.forEach(item => {
+  total += item.price;
+  document.getElementById("items").innerHTML += `
+    <p>${item.name} - ₹${item.price}</p>
+  `;
+});
+
+document.getElementById("total").innerText = total;
+
+// Save order (optional)
+localStorage.setItem("lastOrderId", orderId);
+
+// Go Home
+function goHome() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

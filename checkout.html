@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop With Me - Checkout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧾 Checkout</h1>
+<h3 id="user"></h3>
+
+<h2>Order Summary</h2>
+<div id="order"></div>
+
+<h2>Total: ₹<span id="total"></span></h2>
+
+<h2>Enter Address</h2>
+<textarea id="address"></textarea><br><br>
+
+<button onclick="goToPayment()">Proceed to Payment 💳</button>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const user = localStorage.getItem("loggedInUser");
+document.getElementById("user").innerText = "👤 " + user;
+
+let total = 0;
+cart.forEach(item => {
+  total += item.price;
+  document.getElementById("order").innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
+});
+
+document.getElementById("total").innerText = total;
+
+function goToPayment() {
+  const address = document.getElementById("address").value;
+
+  if (!address) {
+    alert("Enter address");
+    return;
+  }
+
+  localStorage.setItem("address", address);
+  window.location.href = "payment.html";
+}
+</script>
+
+</body>
+</html>
